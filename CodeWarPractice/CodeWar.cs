@@ -12,7 +12,7 @@ namespace CodeWarPractice
         }
 
         /// <summary>
-        /// 找出陣列內第一個由k個字串組成的最長字串
+        /// CodeWar題目：Consecutive strings
         /// </summary>
         /// <param name="strarr">Input</param>
         /// <param name="k">幾個組成</param>
@@ -36,6 +36,11 @@ namespace CodeWarPractice
             return result;
         }
 
+        /// <summary>
+        /// CodeWar題目：Take a Ten Minute Walk
+        /// </summary>
+        /// <param name="walk">Input</param>
+        /// <returns></returns>
         public bool IsValidWalk(string[] walk)
         {
             int n = walk.Where(x => x.Equals("n")).ToArray().Length;
