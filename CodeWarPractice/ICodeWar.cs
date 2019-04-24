@@ -8,5 +8,6 @@ namespace CodeWarPractice
     {
         string LongestConsec(string[] strarr, int k);
         bool IsValidWalk(string[] walk);
+        long NextBiggerNumber(long n);
     }
 }

@@ -54,5 +54,32 @@ namespace CodeWarPractice
             }
             return false;
         }
+
+        /// <summary>
+        /// CodeWar題目：Next bigger number with the same digits
+        /// </summary>
+        /// <param name="n">Input</param>
+        /// <returns></returns>
+        public long NextBiggerNumber(long n)
+        {
+            var digitArray = n.ToString().Select(x => x).ToArray();            
+            
+            for (int i = digitArray.Length - 1; i > 0; i--)
+            {
+                if (digitArray[i] > digitArray[i - 1])
+                {
+                    var pivot = digitArray[i - 1];
+                    var leftPart = String.Join("", digitArray.Take(i - 1).ToArray());
+                    var rightPart = digitArray.Skip(i).ToList();
+                    var changePoint = rightPart.Where(x => x > pivot).OrderBy(x => x).First();
+                    
+                    rightPart.Remove(changePoint);
+                    rightPart.Add(pivot);                   
+
+                    return long.Parse(leftPart + changePoint.ToString() + String.Join("",rightPart.OrderBy(x => x).ToArray()));
+                }
+            }
+            return -1;
+        }
     }
 }

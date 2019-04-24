@@ -36,5 +36,17 @@ namespace Tests
             Assert.AreEqual(false, _codeWar.IsValidWalk(new string[] { "w" }), "should return false");
             Assert.AreEqual(false, _codeWar.IsValidWalk(new string[] { "n", "n", "n", "s", "n", "s", "n", "s", "n", "s" }), "should return false");
         }
+
+        [Test]
+        public void NextBiggerNumber()
+        {
+            Assert.AreEqual(59884848483559, _codeWar.NextBiggerNumber(59884848459853));
+            Assert.AreEqual(21, _codeWar.NextBiggerNumber(12));
+            Assert.AreEqual(1234567908, _codeWar.NextBiggerNumber(1234567890));
+            Assert.AreEqual(531, _codeWar.NextBiggerNumber(513));
+            Assert.AreEqual(2071, _codeWar.NextBiggerNumber(2017));
+            Assert.AreEqual(441, _codeWar.NextBiggerNumber(414));
+            Assert.AreEqual(414, _codeWar.NextBiggerNumber(144));
+        }
     }
 }
