@@ -8,7 +8,7 @@ namespace CodeWarPractice
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Code War Practice!");
+            Console.WriteLine("Code War Practice!");            
         }
 
         /// <summary>
@@ -62,8 +62,8 @@ namespace CodeWarPractice
         /// <returns></returns>
         public long NextBiggerNumber(long n)
         {
-            var digitArray = n.ToString().Select(x => x).ToArray();            
-            
+            var digitArray = n.ToString().Select(x => x).ToArray();
+
             for (int i = digitArray.Length - 1; i > 0; i--)
             {
                 if (digitArray[i] > digitArray[i - 1])
@@ -72,14 +72,48 @@ namespace CodeWarPractice
                     var leftPart = String.Join("", digitArray.Take(i - 1).ToArray());
                     var rightPart = digitArray.Skip(i).ToList();
                     var changePoint = rightPart.Where(x => x > pivot).OrderBy(x => x).First();
-                    
-                    rightPart.Remove(changePoint);
-                    rightPart.Add(pivot);                   
 
-                    return long.Parse(leftPart + changePoint.ToString() + String.Join("",rightPart.OrderBy(x => x).ToArray()));
+                    rightPart.Remove(changePoint);
+                    rightPart.Add(pivot);
+
+                    return long.Parse(leftPart + changePoint.ToString() + String.Join("", rightPart.OrderBy(x => x).ToArray()));
                 }
             }
             return -1;
+        }
+
+        /// <summary>
+        /// CodeWar題目：Highest Scoring Word
+        /// </summary>
+        /// <param name="s">Input</param>
+        /// <returns></returns>
+        public string High(string s)
+        {
+            var charList = s.Split(" ");
+            var pointList = charList.Select(x => x.Select(y => (int)y - 96).Sum()).ToList();
+
+            return charList[pointList.IndexOf(pointList.Max())];
+        }
+
+        public static bool ValidParentheses(string input)
+        {
+            var pteList = input.Select(x => x).ToList();
+
+            if (pteList.Count() >= 2 && pteList.First().Equals('('))
+            {
+                return pteList.Where(x => '('.Equals(x)).Count() - pteList.Where(x => ')'.Equals(x)).Count() == 0 ? true : false;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// CodeWar題目：WeIrD StRiNg CaSe
+        /// </summary>
+        /// <param name="s">Input</param>
+        /// <returns></returns>
+        public string ToWeirdCase(string s)
+        {
+            return String.Join(" ", s.Split(" ").Select(x => String.Concat(x.Select((v, i) => i % 2 != 0 ? char.ToLower(v) : char.ToUpper(v)))));
         }
     }
 }

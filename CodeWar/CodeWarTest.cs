@@ -13,7 +13,7 @@ namespace Tests
         {
             _codeWar = new CodeWar();
         }
-        
+
         [Test]
         public void LongestConsecTest()
         {
@@ -47,6 +47,22 @@ namespace Tests
             Assert.AreEqual(2071, _codeWar.NextBiggerNumber(2017));
             Assert.AreEqual(441, _codeWar.NextBiggerNumber(414));
             Assert.AreEqual(414, _codeWar.NextBiggerNumber(144));
+        }
+
+        [Test]
+        public void High()
+        {
+            Assert.AreEqual("taxi", _codeWar.High("man i need a taxi up to ubud"));
+            Assert.AreEqual("volcano", _codeWar.High("what time are we climbing up to the volcano"));
+            Assert.AreEqual("semynak", _codeWar.High("take me to semynak"));
+        }
+
+        [Test]
+        public void ToWeirdCase(string s)
+        {
+            Assert.AreEqual("ThIs", _codeWar.ToWeirdCase("This"));
+            Assert.AreEqual("Is", _codeWar.ToWeirdCase("is"));
+            Assert.AreEqual("ThIs Is A TeSt", _codeWar.ToWeirdCase("This is a test"));
         }
     }
 }
