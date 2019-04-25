@@ -10,5 +10,6 @@ namespace CodeWarPractice
         bool IsValidWalk(string[] walk);
         long NextBiggerNumber(long n);
         string High(string s);
+        string ToWeirdCase(string s);
     }
 }
