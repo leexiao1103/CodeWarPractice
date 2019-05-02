@@ -11,5 +11,6 @@ namespace CodeWarPractice
         long NextBiggerNumber(long n);
         string High(string s);
         string ToWeirdCase(string s);
+        string Justify(string str, int len);
     }
 }

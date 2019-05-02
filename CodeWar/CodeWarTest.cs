@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Text;
 using CodeWarPractice;
 using NUnit.Framework;
 
@@ -58,11 +60,54 @@ namespace Tests
         }
 
         [Test]
-        public void ToWeirdCase(string s)
+        public void ToWeirdCase()
         {
             Assert.AreEqual("ThIs", _codeWar.ToWeirdCase("This"));
             Assert.AreEqual("Is", _codeWar.ToWeirdCase("is"));
             Assert.AreEqual("ThIs Is A TeSt", _codeWar.ToWeirdCase("This is a test"));
+        }
+
+        [Test]
+        public void Justify()
+        {
+            //Arrnge
+            var input = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sagittis dolor mauris, at elementum ligula tempor eget. In quis rhoncus nunc, at aliquet orci. Fusce at dolor sit amet felis suscipit tristique. Nam a imperdiet tellus. Nulla eu vestibulum urna. Vivamus tincidunt suscipit enim, nec ultrices nisi volutpat ac. Maecenas sit amet lacinia arcu, non dictum justo. Donec sed quam vel risus faucibus euismod. Suspendisse rhoncus rhoncus felis at fermentum. Donec lorem magna, ultricies a nunc sit amet, blandit fringilla nunc. In vestibulum velit ac felis rhoncus pellentesque. Mauris at tellus enim. Aliquam eleifend tempus dapibus. Pellentesque commodo, nisi sit amet hendrerit fringilla, ante odio porta lacus, ut elementum justo nulla et dolor.";
+            var lengths = new int[] { 15, 20, 25, 30, 50, 75, 100 };
+            Func<string, int, string> Sol = (str, len) => {
+                if (string.IsNullOrEmpty(str)) return "";
+                var queue = new Queue<string>(str.Split(' '));
+                var builder = new StringBuilder();
+                while (queue.Count > 0)
+                {
+                    var temp = new List<string> { queue.Dequeue() };
+                    while (queue.Count > 0 && string.Join(" ", temp).Length + queue.Peek().Length < len)
+                        temp.Add(queue.Dequeue());
+                    var missingspaces = len - string.Join(" ", temp).Length;
+                    var i = 0;
+                    while (missingspaces > 0 && queue.Count > 0 && temp.Count > 1)
+                    {
+                        temp[i % (temp.Count - 1)] += " ";
+                        i++;
+                        missingspaces--;
+                    }
+                    builder.Append(string.Join(" ", temp));
+                    if (queue.Count > 0) builder.Append('\n');
+                }
+                return builder.ToString();
+            };
+
+            //Act
+            foreach (var length in lengths)
+            {
+                var myresult = Sol(input, length);
+                var result = _codeWar.Justify(input, length);
+                Assert.AreEqual(myresult, result, "Expected different result:");
+                Assert.AreEqual(myresult.Length, result.Length, "Expected different amount of characters");
+            }
+
+            //Assert
+            Assert.AreEqual(_codeWar.Justify("", 2), "", "Expect empy string for empty string");
+            Assert.AreEqual(_codeWar.Justify(null, 123), "", "Expect empy string for null");
         }
     }
 }

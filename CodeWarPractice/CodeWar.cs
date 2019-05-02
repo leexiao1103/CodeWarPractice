@@ -8,7 +8,7 @@ namespace CodeWarPractice
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Code War Practice!");            
+            Console.WriteLine("Code War Practice!");
         }
 
         /// <summary>
@@ -95,17 +95,6 @@ namespace CodeWarPractice
             return charList[pointList.IndexOf(pointList.Max())];
         }
 
-        public static bool ValidParentheses(string input)
-        {
-            var pteList = input.Select(x => x).ToList();
-
-            if (pteList.Count() >= 2 && pteList.First().Equals('('))
-            {
-                return pteList.Where(x => '('.Equals(x)).Count() - pteList.Where(x => ')'.Equals(x)).Count() == 0 ? true : false;
-            }
-            return false;
-        }
-
         /// <summary>
         /// CodeWar題目：WeIrD StRiNg CaSe
         /// </summary>
@@ -114,6 +103,45 @@ namespace CodeWarPractice
         public string ToWeirdCase(string s)
         {
             return String.Join(" ", s.Split(" ").Select(x => String.Concat(x.Select((v, i) => i % 2 != 0 ? char.ToLower(v) : char.ToUpper(v)))));
+        }
+
+        /// <summary>
+        /// CodeWar題目：Text align justify
+        /// </summary>
+        /// <param name="str">Input</param>
+        /// <param name="len">Input</param>
+        /// <returns></returns>
+        public string Justify(string str, int len)
+        {
+            List<string> result = new List<string>();
+            var lastLine = str?.Split(" ").Aggregate((total, next) =>
+            {
+                if ($"{total} {next}".Count() > len)
+                {
+                    var temp = total.ToList();
+                    var spaceIndexList = Enumerable.Range(0, temp.Count).Where(i => ' '.Equals(temp[i])).ToList();
+
+                    while (temp.Count < len && spaceIndexList.Any())
+                    {
+                        for (int i = 0; i < spaceIndexList.Count; i++)
+                        {
+                            if (temp.Count < len)
+                                temp.Insert(spaceIndexList[i] + i + 1, ' ');
+                        }
+                        spaceIndexList = spaceIndexList.Select(x => x + 1).ToList();
+                    }
+                    result.Add(String.Join("", temp));
+
+                    return next;
+                }
+                else
+                {
+                    return $"{total} {next}";
+                }
+            });
+            result.Add(lastLine ?? "");
+
+            return String.Join("\n", result);
         }
     }
 }
